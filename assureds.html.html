@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Assured Accounting | Next‑Gen Financial Clarity</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS Library for smooth scroll animations (additional) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #00487c;
+      --primary-dark: #003459;
+      --accent: #dea193;
+      --accent-dark: #c47f6e;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-800: #1f2937;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 25px 40px -12px rgba(0,0,0,0.15);
+    }
+
+    /* custom scroll */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+    /* navbar glass */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    .nav-logo { height: 48px; transition: transform 0.2s; }
+    .nav-logo:hover { transform: scale(1.02); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #1e293b;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a i { margin-right: 6px; }
+    .mobile-toggle { display: none; font-size: 1.6rem; cursor: pointer; color: var(--primary); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(125deg, rgba(0,0,0,0.6) 0%, rgba(0,45,70,0.75) 100%), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center 25%;
+      background-attachment: fixed;
+    }
+    .hero-blob {
+      position: absolute;
+      width: 45vw;
+      height: 45vw;
+      background: radial-gradient(circle, rgba(222,161,147,0.25) 0%, rgba(0,72,124,0) 70%);
+      border-radius: 50%;
+      top: 10%;
+      right: -5%;
+      animation: floatBlob 18s infinite alternate;
+      pointer-events: none;
+    }
+    .hero-blob-2 {
+      bottom: 5%;
+      left: -5%;
+      width: 35vw;
+      height: 35vw;
+      background: radial-gradient(circle, rgba(0,72,124,0.2) 0%, rgba(0,72,124,0) 70%);
+      animation: floatBlob2 22s infinite alternate;
+    }
+    @keyframes floatBlob { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-30px, 30px) scale(1.08); } }
+    @keyframes floatBlob2 { 0% { transform: translate(0,0); } 100% { transform: translate(40px, -25px) scale(1.12); } }
+    .hero-content { position: relative; max-width: 800px; margin: 0 auto; padding: 2rem; text-align: center; z-index: 3; }
+    .hero-eyebrow {
+      font-size: 0.8rem; letter-spacing: 3px; font-weight: 700; color: var(--accent);
+      background: rgba(0,0,0,0.3); backdrop-filter: blur(6px); display: inline-block;
+      padding: 0.3rem 1.2rem; border-radius: 40px; margin-bottom: 1rem;
+    }
+    .hero-headline { font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800; color: white; text-shadow: 0 2px 15px rgba(0,0,0,0.2); margin-bottom: 1.2rem; line-height: 1.2; }
+    .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.9); max-width: 550px; margin: 0 auto 2rem; line-height: 1.6; }
+    .btn-primary, .btn-outline { padding: 0.85rem 2rem; border-radius: 40px; font-weight: 600; transition: 0.25s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 6px 14px rgba(0,72,124,0.3); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 14px 25px -8px var(--primary); }
+    .btn-outline { background: transparent; border: 1.5px solid white; color: white; backdrop-filter: blur(4px); }
+    .btn-outline:hover { background: white; color: var(--primary); transform: translateY(-3px); }
+
+    /* sections */
+    .section { padding: 5rem 2rem; max-width: 1280px; margin: 0 auto; }
+    .section-alt { background-color: var(--gray-50); border-radius: 2rem; margin: 1.5rem auto; }
+    .section-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.75rem; }
+    .section-heading { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: #0a2540; margin-bottom: 1rem; }
+    .section-sub { font-size: 1rem; color: #4b5563; max-width: 580px; margin-bottom: 3rem; }
+
+    /* stats grid */
+    .stats-grid {
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem;
+      background: white; border-radius: 2rem; padding: 3rem 2rem; box-shadow: var(--shadow-sm);
+      margin-top: 2rem;
+    }
+    .stat-item { text-align: center; flex: 1; min-width: 140px; }
+    .stat-number { font-size: 3rem; font-weight: 800; color: var(--primary); line-height: 1; }
+    .stat-label { font-size: 0.85rem; color: #5b6e8c; font-weight: 500; margin-top: 0.5rem; }
+
+    /* process steps */
+    .process-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-top: 2rem;
+    }
+    .step-card {
+      background: white; border-radius: 1.5rem; padding: 2rem 1.5rem; text-align: center;
+      transition: all 0.3s; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.03);
+    }
+    .step-icon { font-size: 2.8rem; color: var(--accent); margin-bottom: 1rem; }
+    .step-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .step-desc { font-size: 0.85rem; color: #5b6e8c; }
+
+    /* client logos (trust bar) */
+    .trust-bar {
+      background: white; border-radius: 2rem; padding: 2rem 1.5rem; margin-top: 1rem;
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2.5rem;
+    }
+    .trust-logo { font-size: 1.4rem; font-weight: 600; color: #7c8ba0; letter-spacing: -0.5px; transition: 0.2s; }
+    .trust-logo i { margin-right: 6px; color: var(--accent); }
+
+    /* insights / blog section */
+    .insights-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+    }
+    .insight-card {
+      background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow-sm);
+      transition: 0.25s;
+    }
+    .insight-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .insight-badge { font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; }
+    .insight-title { font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; }
+    .insight-text { font-size: 0.85rem; color: #4b5563; }
+
+    /* floating contact widget */
+    .floating-widget {
+      position: fixed; bottom: 30px; right: 30px; z-index: 999;
+      background: var(--primary); width: 55px; height: 55px; border-radius: 30px;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,72,124,0.4);
+      cursor: pointer; transition: all 0.2s; color: white; font-size: 1.6rem;
+    }
+    .floating-widget:hover { transform: scale(1.08); background: var(--primary-dark); }
+    .quick-contact-modal {
+      position: fixed; bottom: 100px; right: 30px; width: 300px; background: white;
+      border-radius: 1.5rem; box-shadow: var(--shadow-lg); padding: 1.2rem; z-index: 1000;
+      display: none; flex-direction: column; gap: 0.8rem;
+    }
+    .quick-contact-modal.active { display: flex; }
+
+    /* back to top */
+    .back-to-top {
+      position: fixed; bottom: 30px; left: 30px; background: var(--gray-800); color: white;
+      width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0; visibility: hidden; transition: 0.2s; z-index: 99; box-shadow: var(--shadow-sm);
+    }
+    .back-to-top.show { opacity: 1; visibility: visible; }
+
+    /* counters */
+    .form-input, .form-textarea { width: 100%; padding: 0.9rem 1rem; border-radius: 1rem; border: 1px solid #e2e8f0; }
+    .form-submit { background: var(--primary); color: white; border: none; padding: 0.9rem 2rem; border-radius: 2rem; font-weight: 600; cursor: pointer; }
+
+    /* responsive */
+    @media (max-width: 780px) {
+      .nav-links { position: fixed; top: 70px; left: -100%; background: white; width: 75%; height: calc(100vh - 70px); flex-direction: column; align-items: flex-start; padding: 2rem; gap: 1.8rem; transition: 0.3s; box-shadow: 2px 0 20px rgba(0,0,0,0.1); z-index: 999; }
+      .nav-links.active { left: 0; }
+      .mobile-toggle { display: block; }
+      .stats-grid { flex-direction: column; align-items: center; }
+      .hero { background-attachment: scroll; }
+    }
+    .reveal { opacity: 0; transform: translateY(25px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <img class="nav-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCAJMBiADACAREAAhEBx/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAAxEQEhEADx/9oADAMAAQIDBAD/z/9k=" alt="Assured Accounting">
+    <div class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></div>
+    <div class="nav-links" id="navLinks">
+      <a href="#services"><i class="fas fa-chart-line"></i> Services</a>
+      <a href="#process"><i class="fas fa-diagram-project"></i> Process</a>
+      <a href="#about"><i class="fas fa-user"></i> About</a>
+      <a href="#insights"><i class="fas fa-newspaper"></i> Insights</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+    <div class="hero-eyebrow"><i class="fas fa-chart-simple"></i> Boutique Fractional Accounting · San Diego</div>
+    <div class="hero-headline">Financial clarity for<br>companies that mean business.</div>
+    <div class="hero-sub">A boutique firm helping small to midsize companies get their financials right — clean monthly books, audit readiness, deal confidence.</div>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary"><i class="fas fa-calendar-check"></i> Work with us</a>
+      <a href="#services" class="btn-outline"><i class="fas fa-arrow-right"></i> Explore services</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Counter Section (advanced) -->
+<div class="section">
+  <div class="stats-grid" data-aos="fade-up">
+    <div class="stat-item"><div class="stat-number" id="statYears">0</div><div class="stat-label">Years Combined Experience</div></div>
+    <div class="stat-item"><div class="stat-number" id="statClients">0</div><div class="stat-label">Businesses Empowered</div></div>
+    <div class="stat-item"><div class="stat-number" id="statTransactions">0</div><div class="stat-label">M&A / Audit Readiness</div></div>
+    <div class="stat-item"><div class="stat-number" id="statSatisfaction">0<span style="font-size:1.8rem;">%</span></div><div class="stat-label">Client Satisfaction</div></div>
+  </div>
+</div>
+
+<!-- Services Section -->
+<div class="section" id="services">
+  <div class="section-label"><i class="fas fa-cog"></i> Core expertise</div>
+  <div class="section-heading">Two focused offerings</div>
+  <div class="section-sub">We don’t try to be everything. We do two things exceptionally well.</div>
+  <div class="services-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+    <div class="service-card" style="background: white; border-radius: 2rem; padding: 2rem; box-shadow: var(--shadow-sm);" data-aos="zoom-in">
+      <div class="service-icon"><i class="fas fa-book-open" style="font-size:2rem; color:var(--primary);"></i></div>
+      <div class="service-target" style="color:var(--accent);">For $1M–$10M companies</div>
+      <div class="service-name" style="font-size:1.5rem; font-weight:700;">Outsourced Accounting</div>
+      <div class="service-desc">Reliable, ongoing bookkeeping and month-end close so your financials are always accurate and on time.</div>
+      <div class="service-tags"><span class="tag">Monthly bookkeeping</span><span class="tag">Month-end close</span><span class="tag">Financial reporting</span></div>
+    </div>
+    <div class="service-card" style="background: white; border-radius: 2rem; padding: 2rem; box-shadow: var(--shadow-sm);" data-aos="zoom-in" data-aos-delay="100">
+      <div class="service-icon"><i class="fas fa-chart-line" style="font-size:2rem; color:var(--primary);"></i></div>
+      <div class="service-target" style="color:var(--accent);">For growth-stage companies</div>
+      <div class="service-name" style="font-size:1.5rem; font-weight:700;">Financial Cleanup & Readiness</div>
+      <div class="service-desc">Audit, M&A, post‑acquisition integration — we step in, fix problems, and get your financials where they need to be.</div>
+      <div class="service-tags"><span class="tag">Audit readiness</span><span class="tag">M&A diligence</span><span class="tag">Internal controls</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Process / How we work (new) -->
+<div class="section section-alt" id="process">
+  <div class="section-label"><i class="fas fa-diagram-project"></i> Seamless engagement</div>
+  <div class="section-heading">How we deliver excellence</div>
+  <div class="section-sub">A transparent, collaborative process built for modern businesses.</div>
+  <div class="process-steps">
+    <div class="step-card" data-aos="fade-right"><div class="step-icon"><i class="fas fa-magnifying-glass-chart"></i></div><div class="step-title">1. Discovery & Audit</div><div class="step-desc">We deep-dive into your current financial state and identify gaps, risks, and opportunities.</div></div>
+    <div class="step-card" data-aos="fade-up"><div class="step-icon"><i class="fas fa-gear"></i></div><div class="step-title">2. Strategic Cleanup</div><div class="step-desc">Fix historical issues, streamline processes, and implement modern controls.</div></div>
+    <div class="step-card" data-aos="fade-left"><div class="step-icon"><i class="fas fa-chart-simple"></i></div><div class="step-title">3. Ongoing Partnership</div><div class="step-desc">We become your fractional finance team — proactive, precise, and growth-focused.</div></div>
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="section" id="about">
+  <div class="section-label"><i class="fas fa-star"></i> Leadership</div>
+  <div class="section-heading">A boutique firm built on experience</div>
+  <div class="about-inner" style="display: grid; grid-template-columns: 280px 1fr; gap: 3rem;">
+    <div class="about-card" style="background:white; border-radius:2rem; padding:2rem; text-align:center;" data-aos="flip-left">
+      <div class="about-initials" style="width:80px; height:80px; background: linear-gradient(135deg, #e8f2f9, #d4e5f0); border-radius: 50%; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:700;">KS</div>
+      <div class="about-name">Kelly Smith</div>
+      <div class="about-role" style="color:var(--accent);">Founder & Fractional Controller</div>
+      <div class="cred-label">CIMA Adv. Dip. MA</div>
+      <div class="cred-item">20+ years financial leadership</div>
+    </div>
+    <div class="about-bio" data-aos="fade-right">Kelly Smith brings 20+ years of hands-on financial leadership across engineering, SaaS, and direct sales. Former Controller at Omnitracs, Director at a $162M public company. She delivers Fortune 500 rigor to emerging businesses — from internal controls to SEC compliance.</div>
+  </div>
+</div>
+
+<!-- Trust Bar (new) -->
+<div class="section">
+  <div class="trust-bar" data-aos="fade-up">
+    <span class="trust-logo"><i class="fas fa-industry"></i> Engineering</span>
+    <span class="trust-logo"><i class="fas fa-microchip"></i> Manufacturing</span>
+    <span class="trust-logo"><i class="fas fa-cloud"></i> SaaS</span>
+    <span class="trust-logo"><i class="fas fa-chart-line"></i> Direct Sales</span>
+    <span class="trust-logo"><i class="fas fa-building"></i> Public Cos</span>
+  </div>
+</div>
+
+<!-- Insights / Blog Section (new) -->
+<div class="section section-alt" id="insights">
+  <div class="section-label"><i class="fas fa-newspaper"></i> Latest insights</div>
+  <div class="section-heading">Financial intelligence</div>
+  <div class="section-sub">Practical guidance from the front lines of fractional accounting.</div>
+  <div class="insights-grid">
+    <div class="insight-card" data-aos="fade-up"><div class="insight-badge">AUDIT READINESS</div><div class="insight-title">5 steps to pass an audit with flying colors</div><div class="insight-text">Proactive internal controls and documentation strategies every CEO should implement now.</div></div>
+    <div class="insight-card" data-aos="fade-up" data-aos-delay="100"><div class="insight-badge">M&A</div><div class="insight-title">Financial due diligence for sellers</div><div class="insight-text">How clean financials increase valuation and reduce deal friction.</div></div>
+    <div class="insight-card" data-aos="fade-up" data-aos-delay="200"><div class="insight-badge">TECHNOLOGY</div><div class="insight-title">ERP selection for scale-ups</div><div class="insight-text">Avoid costly mistakes when moving beyond spreadsheets.</div></div>
+  </div>
+</div>
+
+<!-- Testimonials (enhanced) -->
+<div class="section">
+  <div class="section-label"><i class="fas fa-comment-dots"></i> Social proof</div>
+  <div class="section-heading">Trusted by industry leaders</div>
+  <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:2rem;">
+    <div class="t-card" style="background:white; border-radius:1.5rem; padding:2rem; box-shadow:var(--shadow-sm);" data-aos="fade-right">
+      <div class="t-mark" style="font-size:3rem; color:var(--accent);">“</div>
+      <div class="t-quote">Kelly stepped in and had our books clean and audit-ready in weeks. Most organized controller we’ve ever worked with.</div>
+      <div class="t-name">— Emily Tran, CEO Streamline SaaS</div>
+    </div>
+    <div class="t-card" style="background:white; border-radius:1.5rem; padding:2rem; box-shadow:var(--shadow-sm);" data-aos="fade-left">
+      <div class="t-mark" style="font-size:3rem; color:var(--accent);">“</div>
+      <div class="t-quote">Heading into a transaction with messy books? Assured Accounting fixed everything and gave us the confidence to close.</div>
+      <div class="t-name">— Michael Chen, Founder Apex Mfg</div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact + Newsletter signup (new) -->
+<div class="section" id="contact">
+  <div class="section-label"><i class="fas fa-paper-plane"></i> Start the conversation</div>
+  <div class="section-heading">Let’s talk about your business</div>
+  <div class="section-sub">Fill out the form or subscribe to get weekly financial insights.</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div class="contact-wrap">
+      <div class="form-row"><label class="form-label">Full name</label><input class="form-input" id="nameField" placeholder="Your name"></div>
+      <div class="form-row"><label class="form-label">Email</label><input class="form-input" id="emailField" placeholder="your@email.com"></div>
+      <div class="form-row"><label class="form-label">Message</label><textarea class="form-textarea" id="msgField" placeholder="Tell us a bit about your situation..."></textarea></div>
+      <button class="form-submit" id="submitBtn"><i class="fas fa-arrow-right"></i> Send message</button>
+    </div>
+    <div class="newsletter-box" style="background: var(--gray-50); border-radius: 1.5rem; padding: 2rem;">
+      <i class="fas fa-envelope-open-text" style="font-size: 2rem; color: var(--accent); margin-bottom: 0.8rem; display: inline-block;"></i>
+      <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Subscribe to briefs</h4>
+      <p style="font-size: 0.85rem; margin-bottom: 1rem;">Monthly insights on financial readiness, M&A trends, and CFO playbooks.</p>
+      <input type="email" id="newsletterEmail" placeholder="Your email" class="form-input" style="margin-bottom: 0.8rem;">
+      <button id="newsletterBtn" class="btn-primary" style="width: 100%; justify-content: center;">Subscribe <i class="fas fa-check-circle"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer" style="text-align: center; padding: 2rem; border-top: 1px solid #eef2f6;">
+  <i class="fas fa-calculator"></i> © 2025 Assured Accounting · San Diego, CA · Precision meets clarity
+</div>
+
+<!-- Floating Widget & Back to Top -->
+<div class="floating-widget" id="floatWidget"><i class="fas fa-comment-dots"></i></div>
+<div class="quick-contact-modal" id="quickModal">
+  <input type="text" id="quickName" placeholder="Name" style="padding: 0.6rem; border-radius: 2rem; border:1px solid #ccc;">
+  <input type="email" id="quickEmail" placeholder="Email" style="padding: 0.6rem; border-radius: 2rem;">
+  <button id="quickSend" style="background:var(--primary); color:white; border:none; padding:0.6rem; border-radius:2rem;">Quick message</button>
+</div>
+<div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true, offset: 40 });
+
+  // Mobile menu toggle
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navLinksMenu = document.getElementById('navLinks');
+  mobileToggle?.addEventListener('click', () => navLinksMenu.classList.toggle('active'));
+  document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinksMenu.classList.remove('active')));
+
+  // Counters with Intersection Observer
+  const counters = [
+    { id: 'statYears', target: 22, suffix: '' },
+    { id: 'statClients', target: 187, suffix: '' },
+    { id: 'statTransactions', target: 43, suffix: '' },
+    { id: 'statSatisfaction', target: 98, suffix: '%' }
+  ];
+  const startCounting = (entry) => {
+    const el = entry.target;
+    const id = el.id;
+    const counter = counters.find(c => c.id === id);
+    if (!counter || el.dataset.animated === 'true') return;
+    el.dataset.animated = 'true';
+    let current = 0;
+    const step = Math.ceil(counter.target / 45);
+    const interval = setInterval(() => {
+      current += step;
+      if (current >= counter.target) {
+        el.innerText = counter.target + (counter.suffix || '');
+        clearInterval(interval);
+      } else {
+        el.innerText = current + (counter.suffix || '');
+      }
+    }, 30);
+  };
+  const observerStats = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) startCounting(entry); });
+  }, { threshold: 0.5 });
+  counters.forEach(c => { const el = document.getElementById(c.id); if (el) observerStats.observe(el); });
+
+  // Contact form handler
+  document.getElementById('submitBtn')?.addEventListener('click', () => {
+    const name = document.getElementById('nameField')?.value;
+    if(!name) { alert("Please share your name 📌"); return; }
+    alert(`✨ Thank you ${name}! Kelly's team will respond within 24h.`);
+    document.getElementById('nameField').value = '';
+    document.getElementById('emailField').value = '';
+    document.getElementById('msgField').value = '';
+  });
+  document.getElementById('newsletterBtn')?.addEventListener('click', () => {
+    const email = document.getElementById('newsletterEmail')?.value;
+    if(email && email.includes('@')) alert("✅ Subscribed! You'll receive our next insight.");
+    else alert("Valid email required.");
+  });
+
+  // Floating widget & quick message
+  const floatWidget = document.getElementById('floatWidget');
+  const quickModal = document.getElementById('quickModal');
+  floatWidget?.addEventListener('click', () => quickModal.classList.toggle('active'));
+  document.getElementById('quickSend')?.addEventListener('click', () => {
+    const name = document.getElementById('quickName')?.value;
+    alert(`📬 Thanks ${name || "friend"} — we’ll reach out ASAP!`);
+    quickModal.classList.remove('active');
+    document.getElementById('quickName').value = '';
+    document.getElementById('quickEmail').value = '';
+  });
+
+  // Back to top
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) backBtn.classList.add('show');
+    else backBtn.classList.remove('show');
+  });
+  backBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
